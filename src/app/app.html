@@ -1,0 +1,17 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <tree-grid on-click="$ctrl.onClike(branch)" tree-data="$ctrl.tree"></tree-grid>
+        </div>
+        <div class="col-md-8">
+            <table >
+                <tr ng-repeat="(index, line) in $ctrl.content track by $index">
+                    <td>{{index + 1}}</td>
+                    <td>{{line}}</td>
+                </tr>
+            </table>
+            <textarea ng-model="$ctrl.content"></textarea>
+            <button ng-click="$ctrl.save(branch)">Salvar</button>
+        </div>
+    </div>
+</div>
