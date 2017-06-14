@@ -22,7 +22,8 @@
     "angular-ui-bootstrap": "^2.2.0",
     "angular-ui-router": "^1.0.0-beta.3",
     "bootstrap": "^3.3.7",
-    "restangular": "^1.5.2"
+    "restangular": "^1.5.2",
+    "tree-model": "^1.0.6"
   },
   "devDependencies": {
     "angular-mocks": "^1.6.0",

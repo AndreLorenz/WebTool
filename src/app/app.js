@@ -8,6 +8,7 @@ import uiRouter from 'angular-ui-router';
 import 'lodash';
 import 'restangular';
 import 'angular-bootstrap-grid-tree/src/tree-grid-directive';
+import 'tree-model/dist/TreeModel';
 
 import 'angular-bootstrap-grid-tree/src/treeGrid.css';
 import '../styles/main.scss';

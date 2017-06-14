@@ -1,16 +1,22 @@
 import template from './app.html';
+import TreeModel from 'tree-model';
 class AppController {
   constructor () {
     this.tree = [];
     this.loadFiles();
+    this.liinha = 20;
+    const treeModel = new TreeModel();
+    this.treeFolder = treeModel.parse({ name: 'CorCtbF4', children: this.tree });
   }
 
   onClike (file) {
-    this.content = file.content.split('\n') || [];
+    this.contentRows = file.content.split('\n').length;
+    this.content = file.content;
     this.uid = file.uid;
   }
 
   save () {
+    this.allowEdit = false;
     this.saveFile(this.tree);
 
   }
@@ -75,30 +81,32 @@ class AppController {
     var lines = [];
     lines.push(line1, line2, line3, line4, line5, line6, line7);
     lines.forEach(line => {
-      this.findFolder(line.src.split(`\\`), line.content, 0);
+      const lineFields = line.src.split(`\\`);
+      this.findFolder(lineFields, 0, line);
     });
   }
 
 
-  findFolder (lines, content, i, childrenPath = this.tree) {
-    if (lines.length === i) return;
-    var children = childrenPath.find((value) => value.name === lines[i]);
-    if (children) this.findFolder(lines, content, ++i, children.children);
+  findFolder (lineFields, i, line, childrenPath = this.tree) {
+    if (lineFields.length === i) return;
+    var children = childrenPath.find((value) => value.name === lineFields[i]);
+    if (children) this.findFolder(lineFields, ++i, line, children.children);
     else {
       let index = 0;
-      if (lines.length - 1 === i) {
+      if (lineFields.length - 1 === i) {
         index = childrenPath.push({
-          name: lines[i],
-          content: content,
+          name: lineFields[i],
+          content: line.content,
+          src: line.src,
           children: []
         });
       } else {
         index = childrenPath.push({
-          name: lines[i],
+          name: lineFields[i],
           children: []
         });
       }
-      this.findFolder(lines, content, ++i, childrenPath[index - 1].children);
+      this.findFolder(lineFields, ++i, line, childrenPath[index - 1].children);
     }
 
   }
