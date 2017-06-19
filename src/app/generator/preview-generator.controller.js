@@ -1,8 +1,6 @@
-import template from './app.html';
-import TreeModel from 'tree-model';
+import template from './preview-generator.html';
 
-
-class AppController {
+class PreviewGeneratorController {
 
   constructor($scope, generatorService) {
     'ngInject';
@@ -10,11 +8,7 @@ class AppController {
     this.generatorService = generatorService;
     this.initializer();
     this.generatorService.getGeneratorFiles();
-
     this.tree = [];
-    this.liinha = 20;
-    const treeModel = new TreeModel();
-    this.treeFolder = treeModel.parse({ name: 'CorCtbF4', children: this.tree });
   }
 
   initializer() {
@@ -91,5 +85,5 @@ class AppController {
 
 export default {
   template: template,
-  controller: AppController
+  controller: PreviewGeneratorController
 };

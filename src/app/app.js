@@ -10,8 +10,8 @@ import 'restangular';
 import 'angular-bootstrap-grid-tree/src/tree-grid-directive';
 import 'tree-model/dist/TreeModel';
 
-import 'angular-bootstrap-grid-tree/src/treeGrid.css';
 import '../styles/main.scss';
+import 'angular-bootstrap-grid-tree/src/treeGrid.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import config from 'app.config';
@@ -19,6 +19,11 @@ import config from 'app.config';
 import appConfig from './app.config';
 import appRoute from './app.route';
 import appComponent from './app.component';
+import previewGeneratorController from './generator/preview-generator.controller';
+import generatorController from './generator/generator.controller';
+
+
+import { GeneratorService } from './services/generator.service';
 
 export default angular.module('tree-view', [
   ngAnimate,
@@ -34,4 +39,7 @@ export default angular.module('tree-view', [
 .constant('CONFIG', config)
 .constant('ENVIRONNEMENT', process.env.ENV_NAME)
 .component('app', appComponent)
+.component('previewGenerator', previewGeneratorController)
+.component('generator', generatorController)
+.service('generatorService', GeneratorService)
 .name;

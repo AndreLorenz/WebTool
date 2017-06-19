@@ -6,8 +6,16 @@ export default function ($stateProvider, $urlRouterProvider) {
 
   $stateProvider
     .state('app', {
-      url      : '/',
+      url: '/',
       component: 'app'
+    })
+    .state('generator', {
+      url: '/generator',
+      component: 'generator'
+    })
+    .state('preview-generator', {
+      url: '/preview-generator',
+      component: 'previewGenerator'
     });
 
   $urlRouterProvider.otherwise('/');
