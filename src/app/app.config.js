@@ -1,14 +1,29 @@
 /**
  * Application configuration.
  */
-export default function (ENVIRONNEMENT, $compileProvider, $locationProvider) {
+export default function (ENVIRONNEMENT, $compileProvider, $locationProvider, $httpProvider) {
   'ngInject';
-
-  // Reference: https://docs.angularjs.org/api/ng/provider/$locationProvider#html5Mode
   $locationProvider.html5Mode(true);
-
-  // Reference : http://blog.thoughtram.io/angularjs/2014/12/22/exploring-angular-1.3-disabling-debug-info.html
   $compileProvider.debugInfoEnabled(ENVIRONNEMENT !== 'prod' && ENVIRONNEMENT !== 'production');
+  $httpProvider.interceptors.push(($location, $q, $injector) => {
+    return {
+      request: function (config) {
+        config.headers = config.headers || {};
+        const auth = $injector.get('authService');
+        if (auth.getToken()) {
+          config.headers['x-access-token'] = auth.getToken();
+        }
 
+        return config;
+      },
 
+      responseError: function (response) {
+        if (response.status === 401 || response.status === 403) {
+          $location.path('/signin');
+        }
+
+        return $q.reject(response);
+      }
+    }
+  });
 }

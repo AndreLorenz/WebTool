@@ -9,6 +9,10 @@ export default function ($stateProvider, $urlRouterProvider) {
       url: '/',
       component: 'app'
     })
+    .state('login', {
+      url: '/login',
+      component: 'login'
+    })
     .state('generator', {
       url: '/generator',
       component: 'generator'
